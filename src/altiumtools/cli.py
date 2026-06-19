@@ -17,6 +17,9 @@ from . import __version__
 from .checks import Severity, all_checks, run_checks
 from .checks import builtin as _builtin  # noqa: F401  (registration side effect)
 from .parse import UnsupportedFile, inspect_ole, load, merge
+from .rules import emit_rul
+from .rules.manufacturers import available as available_vendors
+from .rules.manufacturers import get_pack
 
 _SEV_ORDER = {Severity.INFO: 0, Severity.WARNING: 1, Severity.ERROR: 2}
 
@@ -73,6 +76,43 @@ def _cmd_review(args: argparse.Namespace) -> int:
     return 1 if errors else 0
 
 
+def _cmd_rules_list(_args: argparse.Namespace) -> int:
+    vendors = available_vendors()
+    if not vendors:
+        print("no manufacturer rule packs registered", file=sys.stderr)
+        return 0
+    for vendor in vendors:
+        pack = get_pack(vendor)
+        print(f"{vendor:<16}{pack.title}")
+        print(f"{'':<16}source: {pack.source} (captured {pack.captured})")
+        print(f"{'':<16}{len(pack.rules)} rules: {', '.join(pack.kinds())}")
+    return 0
+
+
+def _cmd_rules_generate(args: argparse.Namespace) -> int:
+    try:
+        pack = get_pack(args.vendor)
+    except KeyError:
+        print(
+            f"error: unknown manufacturer '{args.vendor}'. "
+            f"Known: {', '.join(available_vendors())}",
+            file=sys.stderr,
+        )
+        return 2
+    data = emit_rul(pack)
+    if args.output in (None, "-"):
+        sys.stdout.buffer.write(data)
+    else:
+        with open(args.output, "wb") as fh:
+            fh.write(data)
+        print(
+            f"wrote {len(pack.rules)} rules to {args.output}  "
+            f"(import into Altium: Design > Rules > right-click > Import Rules)",
+            file=sys.stderr,
+        )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="altium-tools", description=__doc__)
     p.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
@@ -91,6 +131,23 @@ def build_parser() -> argparse.ArgumentParser:
         "--select", action="append", help="only run these check IDs (repeatable)"
     )
     rev.set_defaults(func=_cmd_review)
+
+    rules = sub.add_parser(
+        "rules", help="generate importable Altium .RUL design-rule files"
+    )
+    rules_sub = rules.add_subparsers(dest="rules_cmd", required=True)
+
+    rl = rules_sub.add_parser("list", help="list available manufacturer rule packs")
+    rl.set_defaults(func=_cmd_rules_list)
+
+    rg = rules_sub.add_parser(
+        "generate", help="generate a .RUL file for a manufacturer"
+    )
+    rg.add_argument("vendor", help="manufacturer id (see 'rules list')")
+    rg.add_argument(
+        "-o", "--output", help="output .RUL path ('-' or omit = stdout)"
+    )
+    rg.set_defaults(func=_cmd_rules_generate)
 
     return p
 

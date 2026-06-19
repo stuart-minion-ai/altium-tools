@@ -49,4 +49,5 @@ def get_pack(vendor: str) -> RulePack:
 
 # Import side-effect: registers built-in manufacturer packs. Kept at the bottom
 # to avoid a circular import (pcbway imports `register` from this module).
+from . import jlcpcb as _jlcpcb  # noqa: E402,F401
 from . import pcbway as _pcbway  # noqa: E402,F401

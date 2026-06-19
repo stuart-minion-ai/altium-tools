@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.env
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Proprietary design files must never be committed.
+# (Add your own samples to a local, git-ignored dir.)
+samples_private/
+*.PcbDoc
+*.SchDoc
+*.PcbLib
+*.SchLib
+*.PrjPcb

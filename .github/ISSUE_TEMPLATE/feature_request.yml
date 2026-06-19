@@ -1,0 +1,25 @@
+name: New review check / feature
+description: Propose a new schematic/PCB check or parser capability
+labels: [enhancement]
+body:
+  - type: dropdown
+    attributes:
+      label: Area
+      options:
+        - Review check (SCH/PCB/RUL/BOM)
+        - Parser (schematic records)
+        - Parser (PCB geometry — Milestone 1)
+        - Rule planning
+        - CLI / DX
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the check or capability
+      description: What should it catch/do, and why does it matter for a real board?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed check ID / API (if applicable)

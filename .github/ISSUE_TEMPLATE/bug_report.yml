@@ -1,0 +1,20 @@
+name: Bug report
+description: Something doesn't work as expected
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, what you got.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: altium-tools version / commit
+  - type: input
+    attributes:
+      label: OS and Python version
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: Exact command(s). Do NOT attach proprietary design files.

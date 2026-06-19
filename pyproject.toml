@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "altium-tools"
+version = "0.0.1"
+description = "Open-source tooling to make Altium Designer faster: intelligent rule planning, schematic/PCB review, and Altium file analysis on any OS."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "altium-tools contributors" }]
+keywords = ["altium", "eda", "pcb", "schematic", "drc", "design-review", "hardware"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+]
+dependencies = [
+    "olefile>=0.47",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+altium-tools = "altiumtools.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/OWNER/altium-tools"
+Issues = "https://github.com/OWNER/altium-tools/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/altiumtools"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C4", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -32,8 +32,8 @@ dev = [
 altium-tools = "altiumtools.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/OWNER/altium-tools"
-Issues = "https://github.com/OWNER/altium-tools/issues"
+Homepage = "https://github.com/stuart-minion-ai/altium-tools"
+Issues = "https://github.com/stuart-minion-ai/altium-tools/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/altiumtools"]

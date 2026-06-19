@@ -12,7 +12,7 @@ from pathlib import Path
 import olefile
 import pytest
 
-from altiumtools.parse import (
+from altiumtools.core.parse import (
     UnsupportedFile,
     inspect_ole,
     load,

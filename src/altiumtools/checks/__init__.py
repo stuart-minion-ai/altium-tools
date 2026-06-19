@@ -15,7 +15,7 @@ from collections.abc import Callable, Iterable, Iterator
 from dataclasses import dataclass, field
 from enum import Enum
 
-from ..model import Design, SourceRef
+from ..core.model import Design, SourceRef
 
 
 class Severity(str, Enum):

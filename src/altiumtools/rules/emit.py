@@ -14,7 +14,7 @@ Two layers:
 
 from __future__ import annotations
 
-from ..model import DesignRule
+from ..core.model import DesignRule
 from .fields import ENVELOPE_DEFAULTS, SUPPORTED_KINDS, field_order
 from .model import RulePack
 from .parse import RECORD_TERMINATOR

@@ -51,7 +51,7 @@ is the project's headline open problem.
 - sets `design.meta["pcb_geometry_decoded"] = "false"`.
 
 It does **not** invent tracks/vias. When you decode a record type, map it into
-`model.py` (`Net`, `DesignRule`, `Component.footprint`, …) and add a test using
+`core/model.py` (`Net`, `DesignRule`, `Component.footprint`, …) and add a test using
 a synthesized fixture.
 
 ### Known starting points for PCB decoding
@@ -67,6 +67,6 @@ a synthesized fixture.
 
 When you confirm a field or record layout:
 1. Document it here with the exact byte offsets / field names you verified.
-2. Add a parser mapping into `model.py`.
+2. Add a parser mapping into `core/model.py`.
 3. Add a test with a synthesized fixture (`tests/_olewriter.py`).
 4. Never commit proprietary/customer design files to the repo.

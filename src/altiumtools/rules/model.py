@@ -1,6 +1,6 @@
 """Data model for a generated set of manufacturer design rules.
 
-We deliberately reuse ``altiumtools.model.DesignRule`` (kind/name/scope/enabled/
+We deliberately reuse ``altiumtools.core.model.DesignRule`` (kind/name/scope/enabled/
 constraints) rather than inventing a parallel type -- a generated rule and a
 parsed rule are the same concept. ``RulePack`` adds only the provenance metadata
 that makes a generated ``.RUL`` auditable: which manufacturer it targets, where
@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from ..model import DesignRule
+from ..core.model import DesignRule
 
 
 @dataclass

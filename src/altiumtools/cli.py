@@ -16,7 +16,7 @@ from collections.abc import Sequence
 from . import __version__
 from .checks import Severity, all_checks, run_checks
 from .checks import builtin as _builtin  # noqa: F401  (registration side effect)
-from .parse import UnsupportedFile, inspect_ole, load, merge
+from .core.parse import UnsupportedFile, inspect_ole, load, merge
 from .rules import emit_rul
 from .rules.manufacturers import available as available_vendors
 from .rules.manufacturers import get_pack

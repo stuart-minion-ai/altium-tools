@@ -48,7 +48,7 @@ payloads, especially in `.PcbDoc`.
 
 1. Read [docs/ALTIUM_FILE_FORMAT.md](docs/ALTIUM_FILE_FORMAT.md) for what's known.
 2. Use `altium-tools inspect yourfile.PcbDoc` to see streams.
-3. Map decoded data into the neutral `model.py` dataclasses — never leak
+3. Map decoded data into the neutral `core/model.py` dataclasses — never leak
    Altium-specific record shapes past the parser boundary.
 4. Add a test. We synthesize OLE files in tests via `tests/_olewriter.py` so you
    don't need a proprietary sample committed to the repo. Do **not** commit real

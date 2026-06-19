@@ -68,7 +68,7 @@ docs/
   RULE_GENERATOR_PLAN.md     # this file
 ```
 
-`parse.py` gains `parse_rul(text)->list[dict]` (trivial reuse of existing record splitter) used only by tests to prove round-trip.
+`core/parse.py` gains `parse_rul(text)->list[dict]` (trivial reuse of existing record splitter) used only by tests to prove round-trip.
 
 ---
 
@@ -76,7 +76,7 @@ docs/
 
 ### Task 1: `parse_rul` + reference fixture
 - Vendor a real `.RUL` as `tests/fixtures/` ONLY if license permits (Fermium repo — check LICENSE; if not Apache-compatible, regenerate an equivalent fixture from captured field templates instead of committing theirs).
-- Add `parse_rul(text)` to `parse.py`: split on newlines, each line → `{KEY:VALUE}` dict via existing field regex.
+- Add `parse_rul(text)` to `core/parse.py`: split on newlines, each line → `{KEY:VALUE}` dict via existing field regex.
 - Test: parse fixture → assert ≥1 `RULEKIND=Width` record with `MINLIMIT`, `MAXLIMIT`, `PREFEREDWIDTH`.
 
 ### Task 2: field templates (`fields.py`)

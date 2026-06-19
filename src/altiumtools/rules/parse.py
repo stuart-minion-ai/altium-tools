@@ -7,7 +7,7 @@ Altium-exported file):
 * One design rule per line. Lines are separated by ``\n`` only (no ``\r``).
 * Within a line, fields are ``KEY=VALUE`` joined by ``|``. CRUCIALLY the FIRST
   field has NO leading ``|`` (a line begins ``SELECTION=FALSE|LAYER=TOP|...``).
-  This is exactly why ``altiumtools.parse._FIELD_RE`` -- which requires a leading
+  This is exactly why ``altiumtools.core.parse._FIELD_RE`` -- which requires a leading
   ``|`` before every key -- must NOT be reused here: it would silently drop the
   first field of every rule.
 * The last field's VALUE carries a trailing record terminator: the pilcrow byte

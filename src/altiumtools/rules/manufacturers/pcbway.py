@@ -10,7 +10,7 @@ Unit note: Altium ``.RUL`` files in this repo use mils. 1mm = 39.3701mil.
 
 from __future__ import annotations
 
-from ...model import DesignRule
+from ...core.model import DesignRule
 from ..model import RulePack
 from . import register
 

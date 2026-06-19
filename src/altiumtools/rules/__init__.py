@@ -1,6 +1,6 @@
 """Altium design-rule (.RUL) generation.
 
-WHY THIS IS A SEPARATE PACKAGE FROM ``altiumtools.parse``:
+WHY THIS IS A SEPARATE PACKAGE FROM ``altiumtools.core.parse``:
 ``parse.py`` decodes Altium's OLE2 *binary* documents (.SchDoc/.PcbDoc). A
 ``.RUL`` file is a different animal entirely: it is plain ISO-8859 text, one
 design rule per line, ``KEY=VALUE`` pairs joined by ``|``, each record

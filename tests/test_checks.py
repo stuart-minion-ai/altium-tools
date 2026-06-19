@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from altiumtools.checks import Report, Severity, run_checks
 from altiumtools.checks import builtin as _builtin  # noqa: F401
-from altiumtools.model import Component, Design, DesignRule, Net
+from altiumtools.core.model import Component, Design, DesignRule, Net
 
 
 def _ids(design: Design) -> list[str]:

@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pytest
 
-from altiumtools.model import DesignRule
+from altiumtools.core.model import DesignRule
 from altiumtools.rules import emit_rul, parse_rul
 from altiumtools.rules.emit import render_record, stable_uniqueid
 from altiumtools.rules.fields import (

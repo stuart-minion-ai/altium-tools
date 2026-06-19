@@ -70,13 +70,13 @@ Three decoupled layers — this is what makes the project easy to contribute to:
 
 ```
   Altium files (.SchDoc/.PcbDoc, OLE2 binary)
-        │   parse.py  (olefile → records)
+        │   core/parse.py  (olefile → records)
         ▼
-  Normalized Design model   (model.py)   ← format-agnostic dataclasses
-        │   run_checks()
-        ▼
-  Review checks registry    (checks/)    ← contributors add ONE function here
-        │
+  Normalized Design model   (core/model.py)   ← format-agnostic dataclasses
+        │   run_checks()                  │   emit_rul()
+        ▼                                 ▼
+  Review checks registry    (checks/)   Rule generator (rules/)
+        │   ← sub-projects: each depends only on core/, add one function
         ▼
   CLI / report / CI gate    (cli.py)
 ```
@@ -88,7 +88,7 @@ contributor improving the parser never touches rule logic. See
 ### Add a check in ~10 lines
 
 ```python
-from altiumtools.model import Design
+from altiumtools.core.model import Design
 from altiumtools.checks import Finding, Severity, register
 
 @register("SCH010", "Net names should be uppercase", Severity.INFO)

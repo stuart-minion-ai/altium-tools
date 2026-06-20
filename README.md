@@ -30,6 +30,10 @@ inside Altium itself via a thin extension.
   single-node nets, missing clearance rule). Exits non-zero on errors, so it
   drops straight into CI.
 - **`checks`** — list every registered review check.
+- **`rules`** — generate an importable Altium `.RUL` design-rule file preloaded
+  with a PCB manufacturer's published fab limits (7 fabs ship today: JLCPCB,
+  PCBWay, Seeed, AISLER, OSH Park, Advanced Circuits, Eurocircuits). Import
+  straight into Altium via *Design ▸ Rules ▸ Import Rules*.
 
 ```console
 $ altium-tools inspect board/main.SchDoc
@@ -51,6 +55,9 @@ RUL001  [warning]  No clearance design rule defined
 SCH001  [error  ]  Components missing a designator
 SCH002  [error  ]  Duplicate designators
 SCH003  [warning]  Components missing a value/comment
+
+$ altium-tools rules generate jlcpcb -o jlcpcb.RUL
+wrote 8 rules to jlcpcb.RUL  (import into Altium: Design > Rules > right-click > Import Rules)
 ```
 
 ## Install
@@ -84,6 +91,15 @@ Three decoupled layers — this is what makes the project easy to contribute to:
 A contributor writing a new review rule never touches binary parsing. A
 contributor improving the parser never touches rule logic. See
 [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+### Sub-project guides
+
+Each layer has its own README with usage + contributor recipes:
+
+- [`src/altiumtools/core/`](src/altiumtools/core/README.md) — shared model + Altium OLE parser (the foundation).
+- [`src/altiumtools/checks/`](src/altiumtools/checks/README.md) — schematic/PCB review engine (`review`, `checks`).
+- [`src/altiumtools/rules/`](src/altiumtools/rules/README.md) — `.RUL` design-rule generator (`rules`).
+  - [`rules/manufacturers/`](src/altiumtools/rules/manufacturers/README.md) — how to add a fab rule-pack.
 
 ### Add a check in ~10 lines
 

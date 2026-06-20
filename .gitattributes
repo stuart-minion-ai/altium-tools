@@ -1,0 +1,10 @@
+# Normalize line endings for text source by default (consistent LF in the repo).
+* text=auto eol=lf
+
+# Byte-exact Altium .RUL exports are the differential-honesty fixtures: the test
+# suite asserts parse->render reproduces them BYTE-FOR-BYTE (incl. the 0xB6 '¶'
+# record terminator). Git EOL conversion on Windows (core.autocrlf) would inject
+# a stray CR before every LF and break the byte-exact gate. Treat them as binary
+# so no platform ever rewrites their bytes.
+tests/fixtures/rul/*.RUL -text
+*.RUL -text

@@ -91,14 +91,24 @@ def jlcpcb_standard_2layer() -> RulePack:
             MAXHOLEWIDTH="248.0315mil", MAXWIDTH="259.8425mil",
         ),
         # Hole-to-hole spacing. JLCPCB publishes via-to-via 0.2mm AND
-        # pad-to-pad 0.45mm. A single global (AnyNet/All) rule cannot express
-        # both without pad-class scoping (deferred, YAGNI), so we use the more
-        # restrictive 0.45mm(17.7165mil) -- guarantees manufacturability for any
-        # hole pair; via-only 0.2mm relaxation needs a future pad-class scope.
+        # pad-to-pad 0.45mm. Both are now expressed via a dual-priority pair
+        # scoped on the UNIVERSAL object-kind predicate IsVia (manufacturer-
+        # meaningful, project-independent -- unlike InNetClass/InPadClass, which
+        # name project-specific classes a fab cannot know and so are rejected).
+        # Altium resolves overlapping rules by PRIORITY: the P1 IsVia rule wins
+        # for via pairs (relaxed 0.2mm), the P2 catch-all governs every other
+        # hole pair (0.45mm). This is the exact two-rule + priority pattern the
+        # real fixture proves byte-safe; we only swap its project-specific scope
+        # for the universal IsVia kind. 0.2mm=7.874mil, 0.45mm=17.7165mil.
+        _rule(
+            "HoleToHoleClearance", "HoleToHoleClearance_Via", "IsVia", "IsVia",
+            COMMENT="JLCPCB via-to-via hole spacing 0.2mm",
+            GAP="7.874mil", ALLOWSTACKEDMICROVIAS="TRUE", PRIORITY="1",
+        ),
         _rule(
             "HoleToHoleClearance", "HoleToHoleClearance", "All", "All",
-            COMMENT="JLCPCB pad hole-to-hole 0.45mm (via-only 0.2mm needs scoping)",
-            GAP="17.7165mil", ALLOWSTACKEDMICROVIAS="TRUE",
+            COMMENT="JLCPCB pad/other hole-to-hole 0.45mm (vias relaxed via P1)",
+            GAP="17.7165mil", ALLOWSTACKEDMICROVIAS="TRUE", PRIORITY="2",
         ),
         # Solder-mask expansion 1:1 (JLCPCB: "Soldermask Expansion 1:1") = zero
         # expansion, mask opening equals copper pad. 0mil is a byte-valid Altium
